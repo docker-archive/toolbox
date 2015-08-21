@@ -10,6 +10,4 @@ if ERRORLEVEL 1 (
     exit 1234
 )
 
-sh.exe --login -i migrate.sh  
-
-:end
+sh.exe --login -i migrate.sh
