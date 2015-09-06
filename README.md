@@ -59,3 +59,17 @@ The resulting installers will be in the `dist` directory.
 **Do I have to install VirtualBox?**
 
 No, you can deselect VirtualBox during installation. It is bundled in case you want to have a working environment for free.
+
+**Diff scpt files**
+
+.gitattributes
+```
+*.scpt diff=scpt
+```
+
+.git/config
+```
+[diff "scpt"]
+    textconv = osadecompile
+    binary = true
+```
