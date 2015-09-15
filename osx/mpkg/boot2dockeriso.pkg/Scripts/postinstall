@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CONSOLE_USER=$(ps aux | grep console | grep -v grep | cut -d' ' -f1)
+CONSOLE_USER=$(ps aux | grep "loginwindow console" | grep -v grep | grep -v root | cut -d' ' -f1)
 
 # Place boot2docker ISO in cache
 mkdir -p ~/.docker/machine/cache
@@ -11,4 +11,3 @@ chown -R $CONSOLE_USER:staff ~/.docker
 chown -R $CONSOLE_USER:admin /usr/local/bin/docker
 chown -R $CONSOLE_USER:admin /usr/local/bin/docker-machine
 chown -R $CONSOLE_USER:admin /usr/local/bin/docker-compose
-
