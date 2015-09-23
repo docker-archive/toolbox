@@ -56,9 +56,8 @@ echo
 
 eval $($DOCKER_MACHINE env $VM --shell=bash)
 
-USER_SHELL=$(dscl /Search -read /Users/$USER UserShell | uniq | awk '{print $2}')
-if [ "$USER_SHELL" = "/bin/bash" ] || [ "$USER_SHELL" = "/bin/zsh" ] || [ "$USER_SHELL" = "/bin/sh" ]; then
-  $USER_SHELL --login
+if [ "$SHELL" = "/bin/bash" ] || [ "$SHELL" = "/bin/zsh" ] || [ "$SHELL" = "/bin/sh" ]; then
+  $SHELL --login
 else
-  $USER_SHELL
+  $SHELL
 fi
