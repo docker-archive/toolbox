@@ -54,4 +54,13 @@ echo "For help getting started, check out the docs at https://docs.docker.com"
 echo
 cd
 
-bash --rcfile <(echo 'alias docker="winpty docker"') -i
+docker () {
+  if [ -t 1 ] && [ -t 0 ]; then
+    winpty docker.exe $@
+  else
+    docker.exe $@
+  fi
+}
+export -f docker
+
+exec "$BASH" --login -i
