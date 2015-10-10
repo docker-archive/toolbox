@@ -55,7 +55,11 @@ echo
 cd
 
 docker () {
-  winpty docker $@
+  if [ -t 1 ] && [ -t 0 ]; then
+    winpty docker.exe $@
+  else
+    docker.exe $@
+  fi
 }
 export -f docker
 
