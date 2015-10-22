@@ -56,7 +56,32 @@ cat << EOF
 EOF
 echo -e "${BLUE}docker${NC} is configured to use the ${GREEN}$VM${NC} machine with IP ${GREEN}$($DOCKER_MACHINE ip $VM)${NC}"
 echo "For help getting started, check out the docs at https://docs.docker.com"
-echo "NOTE: When using interactive commands, prepend winpty. Examples: 'winpty docker run -it ...', 'winpty docker exec -it ...'."
+
+# Fix tty access with winpty
+if [[ -z "$docker_bin" ]] ; then
+  docker_bin=$(which docker)
+fi
+function docker {
+  if [[ -z ${docker_old_IFS+x} ]] ; then
+    docker_old_IFS=$IFS
+  fi
+ IFS=''
+ docker_use_winpty=0
+ while read -r line; do
+   echo $line
+    if [[ $line == "cannot enable tty mode on non tty input" ]] ; then
+      docker_use_winpty=1
+    fi;
+ done < <("$docker_bin" $@ 2>&1)
+ if [[ $docker_use_winpty == 1 ]] ; then
+   echo "Using winpty"
+   winpty $docker_bin $@
+ fi
+ IFS=$docker_old_IFS
+}
+export -f docker
+export docker_bin
+
 echo
 cd
 
