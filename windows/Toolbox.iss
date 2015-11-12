@@ -250,7 +250,7 @@ var
 	ResultCode: Integer;
 begin
 	WizardForm.FilenameLabel.Caption := 'installing VirtualBox'
-	if not Exec(ExpandConstant('msiexec'), ExpandConstant('/qn /i "{app}\installers\virtualbox\virtualbox.msi" /norestart'), '', SW_HIDE, ewWaitUntilTerminated, ResultCode) then
+	if not Exec(ExpandConstant('msiexec'), ExpandConstant('/qn /i "{app}\installers\virtualbox\virtualbox.msi" NETWORKTYPE=NDIS5 /norestart'), '', SW_HIDE, ewWaitUntilTerminated, ResultCode) then
 		MsgBox('virtualbox install failure', mbInformation, MB_OK);
 end;
 
