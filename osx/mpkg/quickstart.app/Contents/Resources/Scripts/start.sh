@@ -38,9 +38,12 @@ if [ "$VM_STATUS" != "Running" ]; then
 fi
 
 echo "Replacing VBoxfs mounts with NFS"
+if test -f "/etc/nfs.conf"; then sudo sed -i '' '/nfs.server.mount.require_resv_port/d' /etc/nfs.conf; fi
 if test -f "/etc/exports"; then sudo sed -i '' '/Users/d' /etc/exports; fi
+echo 'nfs.server.mount.require_resv_port = 0' | sudo tee -a /etc/nfs.conf > /dev/null
 echo /Users -mapall=$(whoami):staff $HOSTNAME | sudo tee -a /etc/exports > /dev/null
-sudo nfsd start
+sudo nfsd restart
+
 $DOCKER_MACHINE ssh $VM "sudo umount /Users; sudo /usr/local/etc/init.d/nfs-client restart; sudo mount $HOSTNAME:/Users /Users -o rw,async,noatime,rsize=32768,wsize=32768,proto=tcp;"
 
 echo "Setting environment variables for machine $VM..."
