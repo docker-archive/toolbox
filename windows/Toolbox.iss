@@ -95,7 +95,6 @@ Root: HKCU; Subkey: "Environment"; ValueType:string; ValueName:"DOCKER_TOOLBOX_I
 #include "guid.iss"
 
 var
-	restart: boolean;
 	TrackingDisabled: Boolean;
   TrackingCheckBox: TNewCheckBox;
 
@@ -142,7 +141,6 @@ procedure TrackEventWithProperties(name: String; properties: String);
 var
   payload: String;
   WinHttpReq: Variant;
-	tracking: String;
 begin
   if TrackingDisabled or WizardSilent() then
     exit;
