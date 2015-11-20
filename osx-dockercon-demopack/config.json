@@ -1,0 +1,6 @@
+{
+  "trust_dir" : "~/.docker/trust",
+  "remote_server": {
+    "url": "https://notary.docker.io"
+  }
+}

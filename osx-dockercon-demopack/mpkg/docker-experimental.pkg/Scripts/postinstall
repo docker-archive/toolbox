@@ -1,0 +1,26 @@
+#!/bin/bash
+
+CONSOLE_USER=$(stat -f '%Su' /dev/console)
+CONSOLE_USER_HOME=$(su $CONSOLE_USER -c 'echo $HOME')
+
+# synlink docker binaries
+rm -f /usr/local/bin/notary
+rm -f /usr/local/bin/docker-experimental
+rm -f /usr/local/bin/yubico-piv-tool
+ln -s /usr/local/docker-experimental/bin/notary /usr/local/bin/notary || true
+ln -s /usr/local/docker-experimental/bin/docker /usr/local/bin/docker-x || true
+ln -s /usr/local/docker-experimental/bin/yubico-piv-tool /usr/local/bin/yubico-piv-tool || true
+
+# Fix permissions on dylibs, binaries and installer
+chown -R $CONSOLE_USER:admin /usr/local/docker-experimental
+chown -R $CONSOLE_USER:admin /usr/local/bin/docker-x
+chown -R $CONSOLE_USER:admin /usr/local/bin/notary
+chown -R $CONSOLE_USER:wheel /tmp/ifd-yubico.pkg
+
+# Add default notary config file
+mkdir -p $CONSOLE_USER_HOME/.notary
+mv /tmp/config.json $CONSOLE_USER_HOME/.notary/config.json
+chown -R $CONSOLE_USER:staff $CONSOLE_USER_HOME/.notary
+
+# Install yubico package
+installer -pkg /tmp/ifd-yubico.pkg -target /

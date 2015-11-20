@@ -1,0 +1,55 @@
+FROM debian:jessie
+
+RUN apt-get update && apt-get -y install \
+		autoconf build-essential curl \
+		libxml2-dev libssl-dev \
+		p7zip-full \
+		hfsplus hfsutils hfsprogs cpio
+
+# We need the bomutils to create the Mac OS X Bill of Materials (BOM) files.
+# https://github.com/hogliux/bomutils
+RUN curl -fsSL https://github.com/hogliux/bomutils/archive/0.2.tar.gz | tar xvz && \
+	cd bomutils-* && \
+	make && make install
+
+# Needed to pack/unpack the .pkg files
+RUN curl -fsSL https://github.com/mackyle/xar/archive/xar-1.6.1.tar.gz | tar xvz && \
+	cd xar-*/xar && \
+	./autogen.sh && ./configure && \
+	make && make install
+
+# Add components
+COPY osx-dockercon-demopack /dockercon-demopack
+
+RUN mv /dockercon-demopack/mpkg /mpkg && ls /mpkg
+RUN cat /mpkg/Distribution
+
+RUN cd /mpkg/docker-experimental.pkg && \
+  cd Scripts && find . | cpio -o --format odc | gzip -c > ../Scripts.bin && cd .. && \
+  rm -r Scripts && mv Scripts.bin Scripts && \
+	mkdir rootfs && \
+	cd rootfs && \
+	mkdir -p usr/local/docker-experimental && \
+  mv /dockercon-demopack/bin usr/local/docker-experimental/bin && \
+	mv /dockercon-demopack/lib usr/local/docker-experimental/lib && \
+  ls -al usr/local/docker-experimental/ && \
+	ls -al usr/local/docker-experimental/bin && \
+	ls -al usr/local/docker-experimental/lib && \
+  mkdir -p tmp && \
+  mv /dockercon-demopack/ifd-yubico.pkg tmp/ && \
+	mv /dockercon-demopack/config.json tmp/ && \
+  ls -al tmp/ && \
+	find . | cpio -o --format odc | gzip -c > ../Payload && \
+	mkbom . ../Bom && \
+	sed -i \
+		-e "s/%DOCKER_EXPERIMENTAL_NUMBER_OF_FILES%/`find . | wc -l`/g" \
+		-e "s/%DOCKER_EXPERIMENTAL_INSTALL_KBYTES%/`du -sk | cut -f1`/g" \
+		-e "s/%DOCKER_EXPERIMENTAL_VERSION%/$DOCKER_VERSION/g" \
+		../PackageInfo /mpkg/Distribution && \
+	cd .. && \
+	rm -rf ./rootfs
+
+# Repackage back. Yes, --compression=none is mandatory.
+# or this won't install in OSX.
+RUN cd /mpkg && \
+	xar -c --compression=none -f /DockerToolbox.pkg .

@@ -1,0 +1,4 @@
+'docker_title' = 'Docker Toolbox DockerCon EU Demopack';
+
+'choiceDockerExperimentalCLI_title' = 'Docker Client Experimental';
+'choiceDockerExperimentalCLI_msg' = 'Installs the Experimental Docker Client for Mac OS X into /usr/local/bin/';

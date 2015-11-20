@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<installer-gui-script minSpecVersion="1">
+    <title>docker_title</title>
+    <options customize="never" allow-external-scripts="yes" rootVolumeOnly="true" hostArchitectures="x86_64"/>
+    <background file="toolbox.png" alignment="bottomleft" scaling="none"/>
+    <welcome file="welcome.rtfd" mime-type="text/rtfd"/>
+    <choices-outline>
+        <line choice="choiceDockerExperimentalCLI"/>
+    </choices-outline>
+    <choice id="choiceDockerExperimentalCLI" title="choiceDockerExperimentalCLI_title" description="choiceDockerExperimentalCLI_msg" start_enabled="false" start_selected="true" start_visible="true">
+        <pkg-ref id="io.docker.pkg.docker-experimental"/>
+    </choice>
+    <pkg-ref id="io.docker.pkg.docker-experimental" onConclusionScript="restartRequiredString()" auth="Root" version="%DOCKER_EXPERIMENTAL_VERSION%" installKBytes="%DOCKER_EXPERIMENTAL_INSTALL_KBYTES%">#docker-experimental.pkg</pkg-ref>
+    <pkg-ref id="io.docker.pkg.docker-experimental">
+        <bundle-version/>
+    </pkg-ref>
+    <product id="io.docker.mpkg.docker"/>
+    <script>
+    <![CDATA[
+    /* js:pkmk:start */
+    function restartRequiredString() {
+      try {
+        result = system.run('/bin/sh', '-c', '/bin/cat /usr/libexec/SmartCardServices/drivers/ifd-ccid.bundle/Contents/Info.plist | grep "Yubikey 4"');
+      } catch (e) {
+        system.log(e);
+      }
+      system.log("result=" + result);
+      return result !== 0 ? 'RequireRestart' : 'None';
+    }
+    /* js:pkmk:end */
+    ]]>
+    </script>
+</installer-gui-script>
