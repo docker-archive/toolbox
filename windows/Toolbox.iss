@@ -184,9 +184,21 @@ begin
 end;
 
 function NeedToInstallGit(): Boolean;
+var
+  GitRegKey, GitInstallPath: String;  
 begin
-	// TODO: Find a better way to see if Git is installed
-	Result := not DirExists('C:\Program Files\Git') or not FileExists('C:\Program Files\Git\git-bash.exe')
+  GitRegKey := 'GitForWindows';
+
+  if RegQueryStringValue(HKEY_LOCAL_MACHINE, 'Software\Wow6432Node\' + GitRegKey, 'InstallPath', GitInstallPath) and FileExists(GitInstallPath + '\git-bash.exe') then
+    // Git 32-bit installed on a Windows 64-bit machine
+    Result := False
+  end else if RegQueryStringValue(HKEY_LOCAL_MACHINE, 'Software\' + GitRegKey, 'InstallPath', GitInstallPath) and FileExists(GitInstallPath + '\git-bash.exe') then
+    // Git 64-bit installed on a Windows 64-bit machine OR Git 32-bit installed on a Windows 32-bit machine
+    Result := False
+  end else
+    // Git not found
+    Result := True
+  end
 end;
 
 procedure InitializeWizard;
