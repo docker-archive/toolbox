@@ -6,7 +6,7 @@ clear
 
 cd "$(dirname "$BASH_SOURCE")"
 
-( set -x; ./docker-machine rm -f default ) || true
+( set -x; ./docker-machine rm -y -f default ) || true
 
 echo
 echo '[Press any key to exit]'

@@ -10,7 +10,7 @@ fi
 while true; do
   read -p "Remove all Docker Machine VMs? (Y/N): " yn
   case $yn in
-    [Yy]* ) docker-machine rm -f $(docker-machine ls -q); break;;
+    [Yy]* ) docker-machine rm -y -f $(docker-machine ls -q); break;;
     [Nn]* ) break;;
     * ) echo "Please answer yes or no."; exit 1;;
   esac
