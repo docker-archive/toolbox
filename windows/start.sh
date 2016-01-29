@@ -58,6 +58,21 @@ echo "For help getting started, check out the docs at https://docs.docker.com"
 echo
 cd
 
+# Test if the Docker client in the path is the one in the Docker toolbox dir
+DOCKER_EXE="docker"
+# need to use the short DOS path, and then convert to cygwin path - some scripting fails executing with spaces
+DOCKER_PATH=$(cygpath.exe -u "$(cygpath.exe -d "$DOCKER_TOOLBOX_INSTALL_PATH")")
+
+TEST_DOCKER_VERSION="$(docker -v)"
+TEST_DOCKER_TOOLBOX_VERSION="$($DOCKER_PATH/docker.exe -v)"
+
+if [ "$TEST_DOCKER_VERSION" != "$TEST_DOCKER_TOOLBOX_VERSION" ]; then
+	echo "adding toolbox dir to begining of PATH to avoid using $TEST_DOCKER_VERSION at $(which docker)"
+	DOCKER_EXE="$DOCKER_PATH/docker.exe"
+	PATH="$DOCKER_PATH:$PATH"
+	export PATH
+fi
+
 docker () {
   MSYS_NO_PATHCONV=1 docker.exe $@
 }
