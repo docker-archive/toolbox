@@ -50,35 +50,35 @@ Name: "custom"; Description: "Custom installation"; Flags: iscustom
 Filename: "{win}\explorer.exe"; Parameters: "{userprograms}\Docker\"; Flags: postinstall skipifsilent; Description: "View Shortcuts in File Explorer"
 
 [Tasks]
-Name: desktopicon; Description: "{cm:CreateDesktopIcon}"
+Name: desktopicon; Description: "{cm:CreateDesktopIcon}"; Components: "Kitematic DockerQuickstartTerminal"
 Name: modifypath; Description: "Add docker binaries to &PATH"
 Name: upgradevm; Description: "Upgrade Boot2Docker VM"
 
 [Components]
-Name: "Docker"; Description: "Docker Client for Windows" ; Types: full custom; Flags: fixed
-Name: "DockerMachine"; Description: "Docker Machine for Windows" ; Types: full custom; Flags: fixed
-Name: "DockerCompose"; Description: "Docker Compose for Windows" ; Types: full custom
-Name: "VirtualBox"; Description: "VirtualBox"; Types: full custom; Flags: disablenouninstallwarning
-Name: "Kitematic"; Description: "Kitematic for Windows (Alpha)" ; Types: full custom
-Name: "Git"; Description: "Git for Windows"; Types: full custom; Flags: disablenouninstallwarning
+Name: "Docker"; Description: "Docker Client for Windows" ; Types: full custom; Flags: disablenouninstallwarning
+Name: "DockerMachine"; Description: "Docker Machine for Windows" ; Types: full custom; Flags: disablenouninstallwarning
+Name: "DockerCompose"; Description: "Docker Compose for Windows" ; Types: full custom; Flags: disablenouninstallwarning
+Name: "VirtualBox"; Description: "VirtualBox" ; Types: full custom; Flags: disablenouninstallwarning
+Name: "Kitematic"; Description: "Kitematic for Windows" ; Types: full custom; Flags: disablenouninstallwarning
+Name: "DockerQuickstartTerminal"; Description: "Docker Quickstart Terminal"; Types: full custom; Flags: disablenouninstallwarning
 
 [Files]
 Source: ".\docker-quickstart-terminal.ico"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#dockerCli}"; DestDir: "{app}"; Flags: ignoreversion; Components: "Docker"
 Source: ".\start.sh"; DestDir: "{app}"; Flags: ignoreversion; Components: "Docker"
-Source: "{#dockerMachineCli}"; DestDir: "{app}"; Flags: ignoreversion; Components: "DockerMachine"
+Source: "{#dockerMachineCli}"; DestDir: "{app}"; Flags: ignoreversion; Components: "DockerMachine DockerQuickstartTerminal Kitematic"
 Source: "{#dockerComposeCli}"; DestDir: "{app}"; Flags: ignoreversion; Components: "DockerCompose"
 Source: "{#kitematic}\*"; DestDir: "{app}\kitematic"; Flags: ignoreversion recursesubdirs; Components: "Kitematic"
 Source: "{#b2dIsoPath}"; DestDir: "{app}"; Flags: ignoreversion; Components: "DockerMachine"; AfterInstall: CopyBoot2DockerISO()
-Source: "{#git}"; DestDir: "{app}\installers\git"; DestName: "git.exe"; AfterInstall: RunInstallGit();  Components: "Git"
-Source: "{#virtualBoxCommon}"; DestDir: "{app}\installers\virtualbox"; Components: "VirtualBox"
-Source: "{#virtualBoxMsi}"; DestDir: "{app}\installers\virtualbox"; DestName: "virtualbox.msi"; AfterInstall: RunInstallVirtualBox(); Components: "VirtualBox"
+Source: "{#git}"; DestDir: "{app}\installers\git"; DestName: "git.exe"; AfterInstall: RunInstallGit();  Components: "DockerQuickstartTerminal"
+Source: "{#virtualBoxCommon}"; DestDir: "{app}\installers\virtualbox"; Components: "Kitematic DockerQuickstartTerminal VirtualBox"
+Source: "{#virtualBoxMsi}"; DestDir: "{app}\installers\virtualbox"; DestName: "virtualbox.msi"; AfterInstall: RunInstallVirtualBox(); Components: "Kitematic DockerQuickstartTerminal VirtualBox"
 
 [Icons]
 Name: "{userprograms}\Docker\Kitematic (Alpha)"; WorkingDir: "{app}"; Filename: "{app}\kitematic\Kitematic.exe"; Components: "Kitematic"
 Name: "{commondesktop}\Kitematic (Alpha)"; WorkingDir: "{app}"; Filename: "{app}\kitematic\Kitematic.exe"; Tasks: desktopicon; Components: "Kitematic"
-Name: "{userprograms}\Docker\Docker Quickstart Terminal"; WorkingDir: "{app}"; Filename: "{pf64}\Git\bin\bash.exe"; Parameters: "--login -i ""{app}\start.sh"""; IconFilename: "{app}/docker-quickstart-terminal.ico"; Components: "Docker"
-Name: "{commondesktop}\Docker Quickstart Terminal"; WorkingDir: "{app}"; Filename: "{pf64}\Git\bin\bash.exe"; Parameters: "--login -i ""{app}\start.sh"""; IconFilename: "{app}/docker-quickstart-terminal.ico"; Tasks: desktopicon; Components: "Docker"
+Name: "{userprograms}\Docker\Docker Quickstart Terminal"; WorkingDir: "{app}"; Filename: "{pf64}\Git\bin\bash.exe"; Parameters: "--login -i ""{app}\start.sh"""; IconFilename: "{app}/docker-quickstart-terminal.ico"; Components: "DockerQuickstartTerminal"
+Name: "{commondesktop}\Docker Quickstart Terminal"; WorkingDir: "{app}"; Filename: "{pf64}\Git\bin\bash.exe"; Parameters: "--login -i ""{app}\start.sh"""; IconFilename: "{app}/docker-quickstart-terminal.ico"; Tasks: desktopicon; Components: "DockerQuickstartTerminal"
 
 [UninstallRun]
 Filename: "{app}\docker-machine.exe"; Parameters: "rm -f default"
@@ -180,12 +180,6 @@ begin
     Result := GetEnv('VBOX_MSI_INSTALL_PATH')
 end;
 
-function NeedToInstallGit(): Boolean;
-begin
-  // TODO: Find a better way to see if Git is installed
-  Result := not DirExists('C:\Program Files\Git') or not FileExists('C:\Program Files\Git\git-bash.exe')
-end;
-
 procedure InitializeWizard;
 var
   WelcomePage: TWizardPage;
@@ -216,11 +210,6 @@ begin
   TrackingLabel.Width := WizardForm.WelcomeLabel2.Width;
   TrackingLabel.Top := TrackingCheckBox.Top + TrackingCheckBox.Height + 5;
   TrackingLabel.Height := 100;
-
-    // Don't do this until we can compare versions
-    // Wizardform.ComponentsList.Checked[3] := NeedToInstallVirtualBox();
-    Wizardform.ComponentsList.ItemEnabled[3] := not NeedToInstallVirtualBox();
-    Wizardform.ComponentsList.Checked[5] := NeedToInstallGit();
 end;
 
 function InitializeSetup(): boolean;
