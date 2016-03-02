@@ -235,12 +235,12 @@ begin
       if TrackingCheckBox.Checked then begin
         TrackEventWithProperties('Continued from Overview', '"Tracking Enabled": "Yes"');
         TrackingDisabled := False;
-        DeleteFile(ExpandConstant('{userdocs}\..\.docker\machine\no-error-report'));
+        DeleteFile(ExpandConstant('{userappdata}\..\.docker\machine\no-error-report'));
       end else begin
         TrackEventWithProperties('Continued from Overview', '"Tracking Enabled": "No"');
         TrackingDisabled := True;
-        CreateDir(ExpandConstant('{userdocs}\..\.docker\machine'));
-        SaveStringToFile(ExpandConstant('{userdocs}\..\.docker\machine\no-error-report'), '', False);
+        CreateDir(ExpandConstant('{userappdata}\..\.docker\machine'));
+        SaveStringToFile(ExpandConstant('{userappdata}\..\.docker\machine\no-error-report'), '', False);
       end;
   end;
   Result := True
@@ -274,9 +274,9 @@ end;
 procedure CopyBoot2DockerISO();
 begin
   WizardForm.FilenameLabel.Caption := 'copying boot2docker iso'
-  if not ForceDirectories(ExpandConstant('{userdocs}\..\.docker\machine\cache')) then
+  if not ForceDirectories(ExpandConstant('{userappdata}\..\.docker\machine\cache')) then
       MsgBox('Failed to create docker machine cache dir', mbError, MB_OK);
-  if not FileCopy(ExpandConstant('{app}\boot2docker.iso'), ExpandConstant('{userdocs}\..\.docker\machine\cache\boot2docker.iso'), false) then
+  if not FileCopy(ExpandConstant('{app}\boot2docker.iso'), ExpandConstant('{userappdata}\..\.docker\machine\cache\boot2docker.iso'), false) then
       MsgBox('File moving failed!', mbError, MB_OK);
 end;
 
@@ -295,7 +295,7 @@ begin
     exit
   end;
 
-  if not DirExists(ExpandConstant('{userdocs}\..\.docker\machine\machines\default')) then begin
+  if not DirExists(ExpandConstant('{userappdata}\..\.docker\machine\machines\default')) then begin
     Result := false
     exit
   end;
@@ -312,7 +312,7 @@ begin
   ExecAsOriginalUser(ExpandConstant('{app}\docker-machine.exe'), 'stop default', '', SW_HIDE, ewWaitUntilTerminated, ResultCode)
   if (ResultCode = 0) or (ResultCode = 1) then
   begin
-    FileCopy(ExpandConstant('{userdocs}\..\.docker\machine\cache\boot2docker.iso'), ExpandConstant('{userdocs}\..\.docker\machine\machines\default\boot2docker.iso'), false)
+    FileCopy(ExpandConstant('{userappdata}\..\.docker\machine\cache\boot2docker.iso'), ExpandConstant('{userappdata}\..\.docker\machine\machines\default\boot2docker.iso'), false)
     TrackEvent('VM Upgrade Succeeded');
   end
   else begin
