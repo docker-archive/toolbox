@@ -4,6 +4,13 @@ trap '[ "$?" -eq 0 ] || read -p "Looks like something went wrong... Press any ke
 
 VM=default
 DOCKER_MACHINE=./docker-machine.exe
+STORAGE_PATH=$MACHINE_STORAGE_PATH
+
+if [ ! -z "$MACHINE_STORAGE_PATH" ]; then
+  STORAGE_PATH="$MACHINE_STORAGE_PATH"
+else
+  STORAGE_PATH="~/.docker/machine/machines"
+fi
 
 if [ ! -z "$VBOX_MSI_INSTALL_PATH" ]; then
   VBOXMANAGE="${VBOX_MSI_INSTALL_PATH}VBoxManage.exe"
@@ -32,8 +39,8 @@ set -e
 
 if [ $VM_EXISTS_CODE -eq 1 ]; then
   "${DOCKER_MACHINE}" rm -f "${VM}" &> /dev/null || :
-  rm -rf ~/.docker/machine/machines/"${VM}"
-  "${DOCKER_MACHINE}" create -d virtualbox "${VM}"
+  rm -rf ${STORAGE_PATH}/"${VM}"
+  "${DOCKER_MACHINE}" create -s ${STORAGE_PATH} -d virtualbox "${VM}"
 fi
 
 VM_STATUS="$(${DOCKER_MACHINE} status ${VM} 2>&1)"
