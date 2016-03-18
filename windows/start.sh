@@ -46,13 +46,13 @@ if [ $VM_EXISTS_CODE -eq 1 ]; then
   "${DOCKER_MACHINE}" create -d virtualbox $PROXY_ENV "${VM}"
 fi
 
-VM_STATUS="$(${DOCKER_MACHINE} status ${VM} 2>&1)"
+VM_STATUS="$("${DOCKER_MACHINE}" status ${VM} 2>&1)"
 if [ "${VM_STATUS}" != "Running" ]; then
   "${DOCKER_MACHINE}" start "${VM}"
   yes | "${DOCKER_MACHINE}" regenerate-certs "${VM}"
 fi
 
-eval "$(${DOCKER_MACHINE} env --shell=bash ${VM})"
+eval "$("${DOCKER_MACHINE}" env --shell=bash ${VM})"
 
 clear
 cat << EOF
