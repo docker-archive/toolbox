@@ -2,7 +2,7 @@
 
 trap '[ "$?" -eq 0 ] || read -p "Looks like something went wrong... Press any key to continue..."' EXIT
 
-VM=${1-default}
+VM=${VMNAME-default}
 DOCKER_MACHINE=./docker-machine.exe
 
 if [ ! -z "$VBOX_MSI_INSTALL_PATH" ]; then
