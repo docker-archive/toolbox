@@ -18,18 +18,17 @@ RUN curl -fsSL https://github.com/mackyle/xar/archive/xar-1.6.1.tar.gz | tar xvz
 	./autogen.sh && ./configure && \
 	make && make install
 
-ENV VBOX_VERSION 5.0.14
-ENV VBOX_REV 105127
+ENV VBOX_VERSION 5.0.16
+ENV VBOX_REV 105871
 
 RUN curl -fsSL -o /vbox.dmg http://download.virtualbox.org/virtualbox/$VBOX_VERSION/VirtualBox-$VBOX_VERSION-$VBOX_REV-OSX.dmg \
 	&& echo "$(curl -fsSL 'http://download.virtualbox.org/virtualbox/'"$VBOX_VERSION"'/SHA256SUMS' | awk '$2 ~ /-OSX.dmg$/ { print $1 }') */vbox.dmg" | sha256sum -c -
 
 # Download the Docker parts
 
-ENV INSTALLER_VERSION 1.10.1a
-ENV DOCKER_VERSION 1.10.1
-RUN curl -fsSL -o /docker https://test.docker.com/builds/Darwin/x86_64/docker-$DOCKER_VERSION
-# RUN curl -fsSL -o docker https://get.docker.com/builds/Darwin/x86_64/docker-$DOCKER_VERSION
+ENV INSTALLER_VERSION 1.10.3
+ENV DOCKER_VERSION 1.10.3
+RUN curl -fsSL -o /docker https://get.docker.com/builds/Darwin/x86_64/docker-$DOCKER_VERSION
 
 RUN chmod +x /docker
 
@@ -39,7 +38,7 @@ RUN curl -fsSL -o /docker-machine https://github.com/docker/machine/releases/dow
 
 RUN chmod +x /docker-machine
 
-ENV DOCKER_COMPOSE_VERSION 1.6.0
+ENV DOCKER_COMPOSE_VERSION 1.6.2
 RUN curl -fsSL -o /docker-compose https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-Darwin-x86_64
 RUN chmod +x /docker-compose
 

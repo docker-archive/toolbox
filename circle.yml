@@ -6,9 +6,13 @@ machine:
   services:
     - docker
 
+test:
+  override:
+    - exit 0
+
 deployment:
   release:
     tag: /v.*/
     owner: docker
     commands:
-      - echo "Deploying $CIRCLE_TAG"
+      - ./script/deploy.sh
