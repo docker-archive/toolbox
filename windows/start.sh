@@ -39,21 +39,21 @@ if [ $VM_EXISTS_CODE -eq 1 ]; then
 
   #set proxy variables if they exists
   if [ -n "${DOCKER_HTTP_PROXY}" ]; then
-  PROXY_ENV="$PROXY_ENV --engine-env HTTP_PROXY=$DOCKER_HTTP_PROXY"
+    PROXY_ENV="$PROXY_ENV --engine-env HTTP_PROXY=$DOCKER_HTTP_PROXY"
   elif [ -n "${HTTP_PROXY}" ]; then
-  PROXY_ENV="$PROXY_ENV --engine-env HTTP_PROXY=$HTTP_PROXY"
+    PROXY_ENV="$PROXY_ENV --engine-env HTTP_PROXY=$HTTP_PROXY"
   fi
 
   if [ -n "${DOCKER_HTTPS_PROXY}" ]; then
-	PROXY_ENV="$PROXY_ENV --engine-env HTTPS_PROXY=$DOCKER_HTTPS_PROXY"
+    PROXY_ENV="$PROXY_ENV --engine-env HTTPS_PROXY=$DOCKER_HTTPS_PROXY"
   elif [ -n "${HTTPS_PROXY}" ]; then
-  PROXY_ENV="$PROXY_ENV --engine-env HTTP_PROXY=$HTTPS_PROXY"
+    PROXY_ENV="$PROXY_ENV --engine-env HTTP_PROXY=$HTTPS_PROXY"
   fi
 
   if [ -n "${DOCKER_NO_PROXY}" ]; then
-	PROXY_ENV="$PROXY_ENV --engine-env NO_PROXY=$DOCKER_NO_PROXY"
+    PROXY_ENV="$PROXY_ENV --engine-env NO_PROXY=$DOCKER_NO_PROXY"
   elif [ -n "${NO_PROXY}" ]; then
-	PROXY_ENV="$PROXY_ENV --engine-env NO_PROXY=$NO_PROXY"
+    PROXY_ENV="$PROXY_ENV --engine-env NO_PROXY=$NO_PROXY"
   fi
 
   "${DOCKER_MACHINE}" create -d virtualbox $PROXY_ENV "${VM}"
