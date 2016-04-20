@@ -45,7 +45,7 @@ if [ $VM_EXISTS_CODE -eq 1 ]; then
   fi
   if [ -n ${NO_PROXY+x} ]; then
 	PROXY_ENV="$PROXY_ENV --engine-env NO_PROXY=$NO_PROXY"
-  fi  
+  fi
   "${DOCKER_MACHINE}" create -d virtualbox $PROXY_ENV "${VM}"
 fi
 
@@ -83,6 +83,8 @@ docker () {
   MSYS_NO_PATHCONV=1 docker.exe "$@"
 }
 export -f docker
+
+set +e
 
 if [ $# -eq 0 ]; then
   echo "Start interactive shell"
