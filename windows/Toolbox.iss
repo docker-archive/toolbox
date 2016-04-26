@@ -51,7 +51,6 @@ Filename: "{win}\explorer.exe"; Parameters: "{userprograms}\Docker\"; Flags: pos
 
 [Tasks]
 Name: desktopicon; Description: "{cm:CreateDesktopIcon}"
-Name: modifypath; Description: "Add docker binaries to &PATH"
 Name: upgradevm; Description: "Upgrade Boot2Docker VM"
 Name: vbox_ndis5; Description: "Install VirtualBox with NDIS5 driver[default NDIS6]"; Components: VirtualBox; Flags: unchecked
 
@@ -331,17 +330,6 @@ begin
   Result := true
 end;
 
-const
-  ModPathName = 'modifypath';
-  ModPathType = 'user';
-
-function ModPathDir(): TArrayOfString;
-begin
-  setArrayLength(Result, 1);
-  Result[0] := ExpandConstant('{app}');
-end;
-#include "modpath.iss"
-
 procedure CurStepChanged(CurStep: TSetupStep);
 var
   Success: Boolean;
@@ -350,8 +338,6 @@ begin
   if CurStep = ssPostInstall then
   begin
     trackEvent('Installing Files Succeeded');
-    if IsTaskSelected(ModPathName) then
-      ModPath();
     if not WizardSilent() then
     begin
       if IsTaskSelected('upgradevm') then
