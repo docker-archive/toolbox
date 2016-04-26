@@ -2,6 +2,8 @@
 
 trap '[ "$?" -eq 0 ] || read -p "Looks like something went wrong in step ´$STEP´... Press any key to continue..."' EXIT
 
+PATH=$(dirname "$BASH_SOURCE"):$PATH
+
 VM=${DOCKER_MACHINE_NAME-default}
 DOCKER_MACHINE=./docker-machine.exe
 
