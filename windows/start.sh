@@ -5,6 +5,11 @@ trap '[ "$?" -eq 0 ] || read -p "Looks like something went wrong in step ´$STEP
 VM=${DOCKER_MACHINE_NAME-default}
 DOCKER_MACHINE=./docker-machine.exe
 
+docker_machine_storage_path() {
+  local MACHINEPATH=${MACHINE_STORAGE_PATH-~/.docker/machine}
+  cygpath $MACHINEPATH/machines/
+}
+
 STEP="Looking for vboxmanage.exe"
 if [ ! -z "$VBOX_MSI_INSTALL_PATH" ]; then
   VBOXMANAGE="${VBOX_MSI_INSTALL_PATH}VBoxManage.exe"
@@ -35,7 +40,7 @@ set -e
 STEP="Checking if machine $VM exists"
 if [ $VM_EXISTS_CODE -eq 1 ]; then
   "${DOCKER_MACHINE}" rm -f "${VM}" &> /dev/null || :
-  rm -rf ~/.docker/machine/machines/"${VM}"
+  rm -rf $(docker_machine_storage_path)/"${VM}"
   #set proxy variables if they exists
   if [ -n ${HTTP_PROXY+x} ]; then
 	PROXY_ENV="$PROXY_ENV --engine-env HTTP_PROXY=$HTTP_PROXY"
