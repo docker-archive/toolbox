@@ -5,13 +5,13 @@ description = "Documentation that provides an overview of Toolbox"
 keywords = ["docker, documentation, about, technology, kitematic, gui, toolbox"]
 [menu.main]
 parent="workw_toolbox"
-weight=1
+weight=-10
 +++
 <![end-metadata]-->
 
 # Docker Toolbox Overview
 
-Docker Toolbox is an installer for quick setup and launch of a Docker environment on Mac and Windows systems.
+Docker Toolbox is an installer for quick setup and launch of a Docker environment on older Mac and Windows systems that do not meet the requirements of the new [Docker for Mac](/docker-for-mac/index.md) and [Docker for Windows](/docker-for-windows/index.md) apps.
 
 ![Toolbox installer](images/toolbox-installer.png)
 
@@ -33,16 +33,23 @@ Toolbox includes these Docker tools:
 
 ## Ready to get started?
 
-<a href="https://www.docker.com/products/docker-toolbox" target="_blank">Download Docker Toolbox</a> from the product page.
+Go to the <a href="https://www.docker.com/products/docker-toolbox" target="_blank">Docker Toolbox</a> product page and download Toolbox for Mac or Windows.
+
+Choose the install instructions for your platform, and follow the steps:
+
+* [Install Docker Toolbox on Mac OS X](toolbox_install_mac.md)
+
+* [Install Docker Toolbox for Windows](toolbox_install_windows.md)
+
 
 ## Next Steps
 
-* <a href="https://docs.docker.com/mac/">Get Started with Docker for Mac OS X</a>
+* Try out the examples in the [Getting Started](/engine/getstarted/index.md) tutorial.
 
-* <a href="https://docs.docker.com/windows/">Get Started with Docker for Windows</a>
+* Dig in deeper with [more tutorials and examples](/engine/tutorials/index.md) on building images, runnning containers, networking, managing data, and storing images on Docker Hub.
 
-* <a href="https://docs.docker.com/kitematic/userguide/">Learn about Kitematic</a>
+* [Learn about Kitematic](/kitematic/userguide.md)
 
-* <a href="https://docs.docker.com/machine/">Learn about Docker Machine </a>
+* [Learn about Docker Machine](/machine/overview.md)
 
-* <a href="https://docs.docker.com/compose/">Learn about Docker Compose</a>
+* [Learn about Docker Compose](/compose/overview.md)
