@@ -1,4 +1,4 @@
-.PHONY: docs osx windows
+.PHONY: clean clean-osx clean-windows default docs osx windows
 
 default: osx windows
 	@true
