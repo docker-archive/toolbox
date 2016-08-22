@@ -158,4 +158,20 @@ Here is an example of creating a `default` machine with proxies set to `http://e
 
 To learn more about using `docker-machine create`, see the [create](https://docs.docker.com/machine/reference/create/) command in the [Docker Machine](https://docs.docker.com/machine/overview/) reference.
 
+## Custom root Certificate Authority for Registry
+
+Users using their own Docker Registry will experience `x509: certificate signed by unknown authority` 
+error messages if their registry is signed by custom root Certificate Authority and it is 
+not registered with Docker Engine. As discussed in the [Docker Engine documentation](https://docs.docker.com/engine/security/certificates/#/understanding-the-configuration)
+certificates should be placed at `/etc/docker/certs.d/hostname/ca.crt` 
+where `hostname` is your Registry server's hostname.
+
+```console
+docker-machine scp certfile default:ca.crt
+docker-machine ssh default
+sudo mv ~/ca.crt /etc/docker/certs.d/hostname/ca.crt
+exit
+docker-machine restart
+```
+
 &nbsp;
