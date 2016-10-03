@@ -33,5 +33,7 @@ pkgutil --forget io.docker.pkg.docker
 pkgutil --forget io.docker.pkg.dockercompose
 pkgutil --forget io.docker.pkg.dockermachine
 pkgutil --forget io.boot2dockeriso.pkg.boot2dockeriso
+pkgutil --forget io.docker.pkg.dockerquickstartterminalapp
+pkgutil --forget io.docker.pkg.kitematicapp
 
 echo "All Done!"
