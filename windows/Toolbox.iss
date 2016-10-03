@@ -89,6 +89,7 @@ Type: filesandordirs; Name: "{localappdata}\..\Roaming\Kitematic"
 
 [Registry]
 Root: HKCU; Subkey: "Environment"; ValueType:string; ValueName:"DOCKER_TOOLBOX_INSTALL_PATH"; ValueData:"{app}" ; Flags: preservestringtype uninsdeletevalue;
+Root: HKCU; Subkey: "Environment"; ValueType: expandsz; ValueName: "Path"; ValueData: "{olddata};{app}"
 
 [Code]
 #include "base64.iss"
