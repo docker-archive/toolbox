@@ -22,7 +22,7 @@ ENV VBOX_VERSION 5.1.10
 ENV VBOX_REV 112026
 
 RUN curl -fsSL -o /vbox.dmg http://download.virtualbox.org/virtualbox/$VBOX_VERSION/VirtualBox-$VBOX_VERSION-$VBOX_REV-OSX.dmg \
-	&& echo "$(curl -fsSL 'http://download.virtualbox.org/virtualbox/'"$VBOX_VERSION"'/SHA256SUMS' | awk '$2 ~ /-OSX.dmg$/ { print $1 }') */vbox.dmg" | sha256sum -c -
+	&& echo "$(curl -fsSL 'https://virtualbox.org/download/hashes/'"$VBOX_VERSION"'/SHA256SUMS' | awk '$2 ~ /-OSX.dmg$/ { print $1 }') */vbox.dmg" | sha256sum -c -
 
 # Download the Docker parts
 

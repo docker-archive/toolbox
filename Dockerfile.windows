@@ -53,7 +53,8 @@ RUN curl -fsSL -o kitematic.zip "https://github.com/kitematic/kitematic/releases
     unzip ../kitematic.zip && \
     rm ../kitematic.zip
 RUN curl -fsSL -o Git.exe "https://github.com/git-for-windows/git/releases/download/v$GIT_VERSION.windows.1/Git-$GIT_VERSION-64-bit.exe"
-RUN curl -fsSL -o virtualbox.exe "http://download.virtualbox.org/virtualbox/$VIRTUALBOX_VERSION/VirtualBox-$VIRTUALBOX_VERSION-$VIRTUALBOX_REVISION-Win.exe"
+RUN curl -fsSL -o virtualbox.exe "http://download.virtualbox.org/virtualbox/$VIRTUALBOX_VERSION/VirtualBox-$VIRTUALBOX_VERSION-$VIRTUALBOX_REVISION-Win.exe" \
+	&& echo "$(curl -fsSL 'https://virtualbox.org/download/hashes/'"$VIRTUALBOX_VERSION"'/SHA256SUMS' | awk '$2 ~ /-Win.exe$/ { print $1 }') *virtualbox.exe" | sha256sum -c -
 RUN wine virtualbox.exe -extract -silent -path . && \
 	  rm virtualbox.exe && \
 	  rm *x86.msi && \
