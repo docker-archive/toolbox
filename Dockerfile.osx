@@ -18,20 +18,20 @@ RUN curl -fsSL https://github.com/mackyle/xar/archive/xar-1.6.1.tar.gz | tar xvz
 	./autogen.sh && ./configure && \
 	make && make install
 
-ENV VBOX_VERSION 5.1.8
-ENV VBOX_REV 111374
+ENV VBOX_VERSION 5.1.10
+ENV VBOX_REV 112026
 
 RUN curl -fsSL -o /vbox.dmg http://download.virtualbox.org/virtualbox/$VBOX_VERSION/VirtualBox-$VBOX_VERSION-$VBOX_REV-OSX.dmg \
 	&& echo "$(curl -fsSL 'http://download.virtualbox.org/virtualbox/'"$VBOX_VERSION"'/SHA256SUMS' | awk '$2 ~ /-OSX.dmg$/ { print $1 }') */vbox.dmg" | sha256sum -c -
 
 # Download the Docker parts
 
-ENV INSTALLER_VERSION 1.12.3
-ENV DOCKER_VERSION 1.12.3
+ENV INSTALLER_VERSION 1.12.4-rc1
+ENV DOCKER_VERSION 1.12.4-rc1
 
 # Change this to 'test.docker.com' for RCs and 'get.docker.com' for official
 # releases.
-ENV DOCKER_ENDPOINT get.docker.com
+ENV DOCKER_ENDPOINT test.docker.com
 
 # Why '--strip-components 3'?  The client binary is in usr/local/bin/docker in
 # the tar archive.  If we extract directly, it will create a usr/local/bin
@@ -49,7 +49,7 @@ RUN curl -fsSL -o /docker-machine https://github.com/docker/machine/releases/dow
 
 RUN chmod +x /docker-machine
 
-ENV DOCKER_COMPOSE_VERSION 1.8.1
+ENV DOCKER_COMPOSE_VERSION 1.9.0
 RUN curl -fsSL -o /docker-compose https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-Darwin-x86_64
 RUN chmod +x /docker-compose
 
