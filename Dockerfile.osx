@@ -26,8 +26,8 @@ RUN curl -fsSL -o /vbox.dmg http://download.virtualbox.org/virtualbox/$VBOX_VERS
 
 # Download the Docker parts
 
-ENV INSTALLER_VERSION 1.13.0-rc5
-ENV DOCKER_VERSION 1.13.0-rc5
+ENV INSTALLER_VERSION 1.13.0-rc6
+ENV DOCKER_VERSION 1.13.0-rc6
 
 # Change this to 'test.docker.com' for RCs and 'get.docker.com' for official
 # releases.
@@ -49,14 +49,14 @@ RUN curl -fsSL -o /docker-machine https://github.com/docker/machine/releases/dow
 
 RUN chmod +x /docker-machine
 
-ENV DOCKER_COMPOSE_VERSION 1.9.0
+ENV DOCKER_COMPOSE_VERSION 1.10.0-rc2
 RUN curl -fsSL -o /docker-compose https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-Darwin-x86_64
 RUN chmod +x /docker-compose
 
 ENV BOOT2DOCKER_ISO_VERSION $DOCKER_VERSION
 RUN curl -fsSL -o /boot2docker.iso https://github.com/boot2docker/boot2docker/releases/download/v$DOCKER_VERSION/boot2docker.iso
 
-ENV KITEMATIC_VERSION 0.13.0-RC2
+ENV KITEMATIC_VERSION 0.13.0-RC4
 RUN curl -fsSL -o /kitematic.zip https://github.com/kitematic/kitematic/releases/download/v$KITEMATIC_VERSION/Kitematic-$KITEMATIC_VERSION-Mac.zip
 
 ENV MIXPANEL_TOKEN c306ae65c33d7d09fe3e546f36493a6e
