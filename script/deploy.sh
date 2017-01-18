@@ -6,6 +6,12 @@ for i in $(seq 0 4); do
     echo "Trying build $i..."
     make clean
     make
+    (
+        # Generate Checksum
+        cd dist
+        shasum -a 256 DockerToolbox* > sha256sum.txt
+        md5sum DockerToolbox* > md5sum.txt
+    )
     if [[ $? -eq 0 ]]; then
         cp dist/* $CIRCLE_ARTIFACTS
 
