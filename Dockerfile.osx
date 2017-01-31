@@ -31,7 +31,7 @@ ENV DOCKER_VERSION 1.13.1-rc1
 
 # Change this to 'test.docker.com' for RCs and 'get.docker.com' for official
 # releases.
-ENV DOCKER_ENDPOINT get.docker.com
+ENV DOCKER_ENDPOINT test.docker.com
 
 # Why '--strip-components 3'?  The client binary is in usr/local/bin/docker in
 # the tar archive.  If we extract directly, it will create a usr/local/bin

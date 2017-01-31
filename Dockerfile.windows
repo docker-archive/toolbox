@@ -34,7 +34,7 @@ WORKDIR /bundle
 
 # Change this to 'test.docker.com' for RCs and 'get.docker.com' for official
 # releases.
-ENV DOCKER_ENDPOINT get.docker.com
+ENV DOCKER_ENDPOINT test.docker.com
 
 RUN curl -fsSL -o dockerbins.zip "https://${DOCKER_ENDPOINT}/builds/Windows/x86_64/docker-${DOCKER_VERSION}.zip" && \
     unzip dockerbins.zip && \
