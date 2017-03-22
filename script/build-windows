@@ -2,7 +2,20 @@
 
 set -e
 
-docker build -t windows-installer -f Dockerfile.windows .
+. versions
+docker build \
+	-t windows-installer \
+	-f Dockerfile.windows \
+	--build-arg DOCKER_ENDPOINT="${DOCKER_ENDPOINT}" \
+	--build-arg INSTALLER_VERSION="${INSTALLER_VERSION}" \
+	--build-arg DOCKER_VERSION="${DOCKER_VERSION}" \
+	--build-arg DOCKER_COMPOSE_VERSION="${DOCKER_COMPOSE_VERSION}" \
+	--build-arg DOCKER_MACHINE_VERSION="${DOCKER_MACHINE_VERSION}" \
+	--build-arg KITEMATIC_VERSION="${KITEMATIC_VERSION}" \
+	--build-arg VBOX_VERSION="${VBOX_VERSION}" \
+	--build-arg VBOX_REV="${VBOX_REV}" \
+	--build-arg MIXPANEL_TOKEN="${MIXPANEL_TOKEN}" \
+	.
 CONTAINER="$(docker run -d windows-installer)"
 mkdir -p dist
 docker cp "${CONTAINER}":/installer/Output/DockerToolbox.exe dist/

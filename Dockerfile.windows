@@ -2,6 +2,16 @@ FROM debian:jessie
 
 ENV DEBIAN_FRONTEND noninteractive
 
+ARG DOCKER_ENDPOINT
+ARG INSTALLER_VERSION
+ARG DOCKER_VERSION
+ARG DOCKER_COMPOSE_VERSION
+ARG DOCKER_MACHINE_VERSION
+ARG KITEMATIC_VERSION
+ARG VBOX_VERSION
+ARG VBOX_REV
+ARG MIXPANEL_TOKEN
+
 RUN dpkg --add-architecture i386
 RUN sed -i "s/main/main contrib non-free/" etc/apt/sources.list
 RUN apt-get update && apt-get install -yq wine curl unrar unzip
@@ -16,25 +26,11 @@ RUN cd innosetup && \
     curl -fsSL -o is-unicode.exe http://files.jrsoftware.org/is/5/isetup-5.5.8-unicode.exe && \
     wine "./innounp.exe" -e "is-unicode.exe"
 
-# installer components
-ENV INSTALLER_VERSION 17.03.1-ce-rc1
-ENV DOCKER_VERSION 17.03.1-ce-rc1
-ENV DOCKER_MACHINE_VERSION 0.10.0
-ENV DOCKER_COMPOSE_VERSION 1.11.2
-ENV BOOT2DOCKER_ISO_VERSION $DOCKER_VERSION
-ENV KITEMATIC_VERSION 0.13.1
-ENV VIRTUALBOX_VERSION 5.1.18
-ENV VIRTUALBOX_REVISION 114002
 ENV GIT_VERSION 2.9.0
-ENV MIXPANEL_TOKEN c306ae65c33d7d09fe3e546f36493a6e
 
 RUN mkdir /bundle
 
 WORKDIR /bundle
-
-# Change this to 'test.docker.com' for RCs and 'get.docker.com' for official
-# releases.
-ENV DOCKER_ENDPOINT test.docker.com
 
 RUN curl -fsSL -o dockerbins.zip "https://${DOCKER_ENDPOINT}/builds/Windows/x86_64/docker-${DOCKER_VERSION}.zip" && \
     unzip dockerbins.zip && \
@@ -45,7 +41,7 @@ RUN curl -fsSL -o docker-machine.exe "https://github.com/docker/machine/releases
 
 RUN curl -fsSL -o docker-compose.exe "https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-Windows-x86_64.exe"
 
-RUN curl -fsSL -o boot2docker.iso https://github.com/boot2docker/boot2docker/releases/download/v$BOOT2DOCKER_ISO_VERSION/boot2docker.iso
+RUN curl -fsSL -o boot2docker.iso https://github.com/boot2docker/boot2docker/releases/download/v$DOCKER_VERSION/boot2docker.iso
 
 RUN curl -fsSL -o kitematic.zip "https://github.com/kitematic/kitematic/releases/download/v$KITEMATIC_VERSION/Kitematic-$KITEMATIC_VERSION-Windows.zip" && \
     mkdir kitematic && \
@@ -53,8 +49,8 @@ RUN curl -fsSL -o kitematic.zip "https://github.com/kitematic/kitematic/releases
     unzip ../kitematic.zip && \
     rm ../kitematic.zip
 RUN curl -fsSL -o Git.exe "https://github.com/git-for-windows/git/releases/download/v$GIT_VERSION.windows.1/Git-$GIT_VERSION-64-bit.exe"
-RUN curl -fsSL -o virtualbox.exe "http://download.virtualbox.org/virtualbox/$VIRTUALBOX_VERSION/VirtualBox-$VIRTUALBOX_VERSION-$VIRTUALBOX_REVISION-Win.exe" \
-	&& echo "$(curl -fsSL 'https://virtualbox.org/download/hashes/'"$VIRTUALBOX_VERSION"'/SHA256SUMS' | awk '$2 ~ /-Win.exe$/ { print $1 }') *virtualbox.exe" | sha256sum -c -
+RUN curl -fsSL -o virtualbox.exe "http://download.virtualbox.org/virtualbox/$VBOX_VERSION/VirtualBox-$VBOX_VERSION-$VBOX_REV-Win.exe" \
+	&& echo "$(curl -fsSL 'https://virtualbox.org/download/hashes/'"$VBOX_VERSION"'/SHA256SUMS' | awk '$2 ~ /-Win.exe$/ { print $1 }') *virtualbox.exe" | sha256sum -c -
 RUN wine virtualbox.exe -extract -silent -path . && \
 	  rm virtualbox.exe && \
 	  rm *x86.msi && \
