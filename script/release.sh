@@ -13,8 +13,9 @@ fi
 case $1 in
 create)
 	git fetch --tags
-	git tag "${INSTALLER_VERSION}"
-	git push git@github.com:docker/toolbox "${INSTALLER_VERSION}"
+	TAG="v${INSTALLER_VERSION}"
+	git tag "${TAG}"
+	git push git@github.com:docker/toolbox "${TAG}"
 
 	github-release release \
 		--user docker \
@@ -44,10 +45,10 @@ rm)
 	github-release delete \
 		--user docker \
 		--repo toolbox \
-		--tag "${INSTALLER_VERSION}"
+		--tag "${TAG}"
 
 	# delete tag.
-	git push git@github.com ":${INSTALLER_VERSION}"
+	git push git@github.com ":${TAG}"
 	;;
 *)
 	echo "Usage: ./script/release.sh [create|rm]"
