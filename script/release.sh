@@ -42,12 +42,12 @@ the components to these versions.
 		--pre-release
 	;;
 rm)
-	git tag -d "${TAG}"
-	git push "${REMOTE}" ":${TAG}"
+	git tag -d "${TAG}" || true
+	git push "${REMOTE}" ":${TAG}" || true
 	github-release delete \
 		--user docker \
 		--repo toolbox \
-		--tag "${TAG}"
+		--tag "${TAG}" || true
 	;;
 *)
 	echo "Usage: ./script/release.sh [create|rm]"
