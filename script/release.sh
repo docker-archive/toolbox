@@ -32,12 +32,12 @@ have a previously installed version of Toolbox, these installers will update
 the components to these versions.
 
 **Included Components**
-- docker `${DOCKER_VERSION}`
-- docker-machine `${DOCKER_MACHINE_VERSION}`
-- docker-compose `${DOCKER_COMPOSE_VERSION}`
-- Kitematic `${KITEMATIC_VERSION}`
-- Boot2Docker ISO `${DOCKER_VERSION}`
-- VirtualBox `${VBOX_VERSION}`" \
+- docker \`${DOCKER_VERSION}\`
+- docker-machine \`${DOCKER_MACHINE_VERSION}\`
+- docker-compose \`${DOCKER_COMPOSE_VERSION}\`
+- Kitematic \`${KITEMATIC_VERSION}\`
+- Boot2Docker ISO \`${DOCKER_VERSION}\`
+- VirtualBox \`${VBOX_VERSION}\`" \
 		--pre-release
 	;;
 rm)
