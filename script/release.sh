@@ -9,11 +9,11 @@ then
 fi
 
 . versions
+TAG="v${INSTALLER_VERSION}"
 
 case $1 in
 create)
 	git fetch --tags git@github.com:docker/toolbox
-	TAG="v${INSTALLER_VERSION}"
 	git tag "${TAG}"
 	git push git@github.com:docker/toolbox "${TAG}"
 
