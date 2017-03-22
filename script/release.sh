@@ -10,12 +10,13 @@ fi
 
 . versions
 TAG="v${INSTALLER_VERSION}"
+REMOTE="git@github.com:docker/toolbox"
 
 case $1 in
 create)
-	git fetch --tags git@github.com:docker/toolbox
+	git fetch --tags "${REMOTE}"
 	git tag "${TAG}"
-	git push git@github.com:docker/toolbox "${TAG}"
+	git push "${REMOTE}" "${TAG}"
 
 	github-release release \
 		--user docker \
@@ -42,7 +43,7 @@ the components to these versions.
 	;;
 rm)
 	git tag -d "${TAG}"
-	git push git@github.com ":${TAG}"
+	git push "${REMOTE}" ":${TAG}"
 	github-release delete \
 		--user docker \
 		--repo toolbox \
