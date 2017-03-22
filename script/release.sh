@@ -21,16 +21,11 @@ create)
 	github-release release \
 		--user docker \
 		--repo toolbox \
-		--tag "${INSTALLER_VERSION}" \
-		--name "${INSTALLER_VERSION}" \
-		--description "Please ensure that your system has all of the latest
-updates before attempting the installation.  In some cases, this will require a
-reboot.  If you run into issues creating VMs, you may need to uninstall
-VirtualBox before re-installing the Docker Toolbox.
+		--tag "${TAG}" \
+		--name "${TAG}" \
+		--description "Please ensure that your system has all of the latest updates before attempting the installation.  In some cases, this will require a reboot.  If you run into issues creating VMs, you may need to uninstall VirtualBox before re-installing the Docker Toolbox.
 
-The following list of components is included with this Toolbox release.  If you
-have a previously installed version of Toolbox, these installers will update
-the components to these versions.
+The following list of components is included with this Toolbox release.  If you have a previously installed version of Toolbox, these installers will update the components to these versions.
 
 **Included Components**
 - docker \`${DOCKER_VERSION}\`
