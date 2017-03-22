@@ -1,7 +1,7 @@
 machine:
   pre:
     - curl -fsSLO https://get.docker.com/builds/Linux/x86_64/docker-1.13.1.tgz && sudo tar --strip-components=1 -xvzf docker-1.13.1.tgz -C /usr/local/bin
-    - service docker restart
+    - sudo service docker start
   services:
     - docker
 
