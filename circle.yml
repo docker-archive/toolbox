@@ -1,6 +1,8 @@
 machine:
   pre:
+    # Circle default Docker is a forked 1.9.1 :(
     - curl -fsSLO https://get.docker.com/builds/Linux/x86_64/docker-1.13.1.tgz && sudo tar --strip-components=1 -xvzf docker-1.13.1.tgz -C /usr/bin
+    - sudo sed -i 's/DOCKER_OPTS/#DOCKER_OPTS/g' /etc/default/docker
   services:
     - docker
 
