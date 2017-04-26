@@ -333,7 +333,7 @@ end;
 
 const
   ModPathName = 'modifypath';
-  ModPathType = 'user';
+  ModPathType = 'system';
 
 function ModPathDir(): TArrayOfString;
 begin
