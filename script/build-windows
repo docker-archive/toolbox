@@ -2,6 +2,8 @@
 
 set -e
 
+# TODO(nathanleclaire): The Vbox revision shouldn't be hardcoded, but for some
+# reason they bumped the revision one for OSX but not for Windows in 5.20.0
 . versions
 docker build \
 	-t windows-installer \
@@ -13,7 +15,7 @@ docker build \
 	--build-arg DOCKER_MACHINE_VERSION="${DOCKER_MACHINE_VERSION}" \
 	--build-arg KITEMATIC_VERSION="${KITEMATIC_VERSION}" \
 	--build-arg VBOX_VERSION="${VBOX_VERSION}" \
-	--build-arg VBOX_REV="${VBOX_REV}" \
+	--build-arg VBOX_REV="114628" \
 	--build-arg MIXPANEL_TOKEN="${MIXPANEL_TOKEN}" \
 	.
 CONTAINER="$(docker run -d windows-installer)"
