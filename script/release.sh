@@ -11,6 +11,7 @@ fi
 . versions
 TAG="v${INSTALLER_VERSION}"
 REMOTE="git@github.com:docker/toolbox"
+go get github.com/aktau/github-release
 
 case $1 in
 create)
