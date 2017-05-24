@@ -11,6 +11,7 @@ fi
 . versions
 TAG="v${INSTALLER_VERSION}"
 REMOTE="git@github.com:docker/toolbox"
+command -v go >/dev/null || { echo "go (https://golang.org/doc/install) needs to be installed"; exit 1; }
 go get -u github.com/aktau/github-release
 
 case $1 in
