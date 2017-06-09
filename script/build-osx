@@ -6,7 +6,7 @@ set -e
 docker build \
 	-t osx-installer \
 	-f Dockerfile.osx \
-	--build-arg DOCKER_ENDPOINT="${DOCKER_ENDPOINT}" \
+	--build-arg DOCKER_RELEASE_STAGE="${DOCKER_RELEASE_STAGE}" \
 	--build-arg INSTALLER_VERSION="${INSTALLER_VERSION}" \
 	--build-arg DOCKER_VERSION="${DOCKER_VERSION}" \
 	--build-arg DOCKER_COMPOSE_VERSION="${DOCKER_COMPOSE_VERSION}" \

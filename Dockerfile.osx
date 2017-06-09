@@ -1,6 +1,6 @@
 FROM debian:jessie
 
-ARG DOCKER_ENDPOINT
+ARG DOCKER_RELEASE_STAGE
 ARG INSTALLER_VERSION
 ARG DOCKER_VERSION
 ARG DOCKER_COMPOSE_VERSION
@@ -36,7 +36,7 @@ RUN curl -fsSL -o /vbox.dmg http://download.virtualbox.org/virtualbox/$VBOX_VERS
 # the tar archive.  If we extract directly, it will create a usr/local/bin
 # subdirectory (not what we want).  So we use --strip-components to remove the
 # `usr/local/bin` part and drop the bin in the current directory.
-RUN curl -fsSL -o dockerbins.tgz "https://${DOCKER_ENDPOINT}/builds/Darwin/x86_64/docker-${DOCKER_VERSION}.tgz" && \
+RUN curl -fsSL -o dockerbins.tgz "https://download.docker.com/mac/static/${DOCKER_RELEASE_STAGE}/x86_64/docker-${DOCKER_VERSION}-x86_64.tgz" && \
     tar xvf dockerbins.tgz docker/docker --strip-components 1 && \
     rm dockerbins.tgz
 RUN chmod +x /docker
