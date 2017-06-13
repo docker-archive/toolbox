@@ -219,8 +219,8 @@ begin
   TrackingLabel.Height := 100;
 
     // Don't do this until we can compare versions
-    // Wizardform.ComponentsList.Checked[3] := NeedToInstallVirtualBox();
-    Wizardform.ComponentsList.ItemEnabled[3] := not NeedToInstallVirtualBox();
+    Wizardform.ComponentsList.Checked[3] := NeedToInstallVirtualBox();
+    // Wizardform.ComponentsList.ItemEnabled[3] := not NeedToInstallVirtualBox();
     Wizardform.ComponentsList.Checked[5] := NeedToInstallGit();
 end;
 
