@@ -7,6 +7,7 @@ trap '[ "$?" -eq 0 ] || read -p "Looks like something went wrong in step ´$STEP
 # Docker for Windows when launching using the Quickstart.
 export PATH="/c/Program Files/Docker Toolbox:$PATH"
 VM=${DOCKER_MACHINE_NAME-default}
+PROVIDER=${DOCKER_PROVIDER-virtualbox}
 DOCKER_MACHINE=./docker-machine.exe
 
 STEP="Looking for vboxmanage.exe"
@@ -33,12 +34,16 @@ if [ ! -f "${DOCKER_MACHINE}" ]; then
   exit 1
 fi
 
-if [ ! -f "${VBOXMANAGE}" ]; then
-  echo "VirtualBox is not installed. Please re-run the Toolbox Installer and try again."
-  exit 1
+if [ $PROVIDER == 'virtualbox' ]; then
+  if [! -f "${VBOXMANAGE}" ]; then
+    echo "VirtualBox is not installed. Please re-run the Toolbox Installer and try again."
+    exit 1
+  fi
+  "${VBOXMANAGE}" list vms | grep \""${VM}"\" &> /dev/null
+else
+  powershell -command "Get-VM | % Name" | grep ^${VM}$ &> /dev/null
 fi
 
-"${VBOXMANAGE}" list vms | grep \""${VM}"\" &> /dev/null
 VM_EXISTS_CODE=$?
 
 set -e
@@ -57,7 +62,7 @@ if [ $VM_EXISTS_CODE -eq 1 ]; then
   if [ "${NO_PROXY}" ]; then
     PROXY_ENV="$PROXY_ENV --engine-env NO_PROXY=$NO_PROXY"
   fi
-  "${DOCKER_MACHINE}" create -d virtualbox $PROXY_ENV "${VM}"
+  "${DOCKER_MACHINE}" create -d $PROVIDER $PROXY_ENV "${VM}"
 fi
 
 STEP="Checking status on $VM"
