@@ -17,7 +17,7 @@ docker build \
 	--build-arg VBOX_REV="${VBOX_REV}" \
 	--build-arg MIXPANEL_TOKEN="${MIXPANEL_TOKEN}" \
 	.
-CONTAINER="$(docker run -d windows-installer)"
+CONTAINER="$(docker create windows-installer)"
 mkdir -p dist
 docker cp "${CONTAINER}":/installer/Output/DockerToolbox.exe dist/
 docker rm "${CONTAINER}" 2>/dev/null || true
