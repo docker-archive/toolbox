@@ -1,6 +1,5 @@
-# TODO keep this version in sync with https://github.com/docker/docker-ce.git for the specified tag
-FROM dockercore/golang-cross@sha256:2e843a0e4d82b6bab34d2cb7abe26d1a6cda23226ecc3869100c8db553603f9b as cli_build
-ENV DISABLE_WARN_OUTSIDE_CONTAINER=1
+ARG DOCKER_VERSION
+FROM cli-cross:v${DOCKER_VERSION} as cli_build
 ARG DOCKER_VERSION
 RUN mkdir -p /go/src/github.com/docker/cli
 WORKDIR /go/src/github.com/docker/cli

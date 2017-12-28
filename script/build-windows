@@ -3,6 +3,13 @@
 set -e
 
 . versions
+
+# make sure we use the exact same version of dockercore/golang-cross as is used
+# upstream (without manually grep'ing the Dockerfile)
+docker build \
+	-t cli-cross:v${DOCKER_VERSION} \
+	https://raw.githubusercontent.com/docker/docker-ce/v${DOCKER_VERSION}/components/cli/dockerfiles/Dockerfile.cross
+
 docker build \
 	-t windows-installer \
 	-f Dockerfile.windows \
