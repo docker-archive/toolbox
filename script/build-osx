@@ -16,7 +16,7 @@ docker build \
 	--build-arg VBOX_REV="${VBOX_REV}" \
 	--build-arg MIXPANEL_TOKEN="${MIXPANEL_TOKEN}" \
 	.
-CONTAINER="$(docker run -d osx-installer)"
+CONTAINER="$(docker create osx-installer)"
 mkdir -p dist
 docker cp "${CONTAINER}":/DockerToolbox.pkg dist/
 docker rm "${CONTAINER}" 2>/dev/null || true
