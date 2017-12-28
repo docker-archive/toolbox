@@ -1,3 +1,12 @@
+FROM dockercore/golang-cross:latest as cli_build
+
+ARG DOCKER_VERSION
+ARG DOCKER_CLI_COMMIT
+RUN mkdir -p /go/src/github.com/docker/cli
+WORKDIR /go/src/github.com/docker/cli
+RUN git clone https://github.com/docker/cli.git . && git checkout $DOCKER_CLI_COMMIT
+RUN VERSION=$DOCKER_VERSION ./scripts/build/windows
+
 FROM debian:jessie
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -32,10 +41,7 @@ RUN mkdir /bundle
 
 WORKDIR /bundle
 
-RUN curl -fsSL -o dockerbins.zip "https://download.docker.com/win/static/${DOCKER_RELEASE_STAGE}/x86_64/docker-${DOCKER_VERSION}.zip" && \
-    unzip dockerbins.zip && \
-    mv docker/docker.exe . && \
-    rm -r docker/ dockerbins.zip
+COPY --from=cli_build /go/src/github.com/docker/cli/build/docker-windows-amd64 ./docker.exe
 
 RUN curl -fsSL -o docker-machine.exe "https://github.com/docker/machine/releases/download/v$DOCKER_MACHINE_VERSION/docker-machine-Windows-x86_64.exe"
 
