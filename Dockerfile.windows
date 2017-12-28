@@ -1,10 +1,13 @@
-FROM dockercore/golang-cross:latest as cli_build
-
 ARG DOCKER_VERSION
-ARG DOCKER_CLI_COMMIT
+FROM cli-cross:v${DOCKER_VERSION} as cli_build
+ARG DOCKER_VERSION
 RUN mkdir -p /go/src/github.com/docker/cli
 WORKDIR /go/src/github.com/docker/cli
-RUN git clone https://github.com/docker/cli.git . && git checkout $DOCKER_CLI_COMMIT
+RUN git clone https://github.com/docker/docker-ce.git /tmp/docker-ce/ \
+ && git -C /tmp/docker-ce/ checkout tags/v${DOCKER_VERSION}  \
+ && mv /tmp/docker-ce/components/cli /go/src/github.com/docker/ \
+ && rm -rf /tmp/docker-ce
+
 RUN VERSION=$DOCKER_VERSION ./scripts/build/windows
 
 FROM debian:jessie
