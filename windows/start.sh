@@ -61,7 +61,7 @@ if [ $VM_EXISTS_CODE -eq 1 ]; then
 fi
 
 STEP="Checking status on $VM"
-VM_STATUS="$(${DOCKER_MACHINE} status ${VM} 2>&1)"
+VM_STATUS="$( set +e ; ${DOCKER_MACHINE} status ${VM} )"
 if [ "${VM_STATUS}" != "Running" ]; then
   "${DOCKER_MACHINE}" start "${VM}"
   yes | "${DOCKER_MACHINE}" regenerate-certs "${VM}"

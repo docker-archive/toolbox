@@ -17,7 +17,7 @@ while true; do
 done
 
 echo "Removing Applications..."
-rm -rf /Applications/Docker
+rm -rf /Applications/Docker.app
 
 echo "Removing docker binaries..."
 rm -f /usr/local/bin/docker
