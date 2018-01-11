@@ -5,7 +5,6 @@ ENV DEBIAN_FRONTEND noninteractive
 ARG DOCKER_RELEASE_STAGE
 ARG INSTALLER_VERSION
 ARG DOCKER_VERSION
-ARG DOCKER_CLI_COMMIT
 ARG DOCKER_COMPOSE_VERSION
 ARG DOCKER_MACHINE_VERSION
 ARG KITEMATIC_VERSION
@@ -34,11 +33,11 @@ RUN mkdir -p /go/src/github.com/docker/
 
 RUN git clone https://github.com/docker/docker-ce.git /docker-ce && \
     cd /docker-ce && \
-    git checkout $DOCKER_CLI_COMMIT && \
+    git checkout "v${DOCKER_VERSION}" && \
     cp -R components/cli /go/src/github.com/docker/
 
 WORKDIR /go/src/github.com/docker/cli
-RUN VERSION=$DOCKER_VERSION GITCOMMIT=$(echo $DOCKER_CLI_COMMIT | cut -c 1-7) ./scripts/build/windows
+RUN VERSION=$DOCKER_VERSION GITCOMMIT=$(cd /docker-ce && git rev-parse --short HEAD) ./scripts/build/windows
 
 # Assemble bundle
 RUN mkdir /bundle
