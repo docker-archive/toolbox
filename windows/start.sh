@@ -102,7 +102,12 @@ echo
 #cd #Bad: working dir should be whatever directory was invoked from rather than fixed to the Home folder
 
 docker () {
-  MSYS_NO_PATHCONV=1 docker.exe "$@"
+  args=()
+  for arg in "$@"
+  do
+    args+="$(echo $arg | sed -e 's/type=bind,\(source\|src\)=\([A-Za-z]\):\\\\/type=bind,\1=\/\L\2\//' | sed -e 's/\([[:print:]]\)\\/\1\//') "
+  done
+  MSYS_NO_PATHCONV=1 docker.exe $args
 }
 export -f docker
 
