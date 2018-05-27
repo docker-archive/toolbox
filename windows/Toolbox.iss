@@ -83,6 +83,11 @@ Name: "{commondesktop}\Docker Quickstart Terminal"; WorkingDir: "{app}"; Filenam
 
 [UninstallRun]
 Filename: "{app}\docker-machine.exe"; Parameters: "rm -f default"
+Filename: "{sys}\reg.exe"; Parameters: "delete HKCU\Environment /F /V DOCKER_CERT_PATH"; WorkingDir: "{sys}"
+Filename: "{sys}\reg.exe"; Parameters: "delete HKCU\Environment /F /V DOCKER_HOST"; WorkingDir: "{sys}"
+Filename: "{sys}\reg.exe"; Parameters: "delete HKCU\Environment /F /V DOCKER_MACHINE_NAME"; WorkingDir: "{sys}"
+Filename: "{sys}\reg.exe"; Parameters: "delete HKCU\Environment /F /V DOCKER_TLS_VERIFY"; WorkingDir: "{sys}"
+Filename: "{sys}\reg.exe"; Parameters: "delete HKCU\Environment /F /V NO_PROXY"; WorkingDir: "{sys}"
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{localappdata}\..\Roaming\Kitematic"
