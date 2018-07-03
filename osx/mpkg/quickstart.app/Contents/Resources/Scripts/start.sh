@@ -37,7 +37,7 @@ VM_EXISTS_CODE=$?
 if [ $VM_EXISTS_CODE -eq 1 ]; then
   "${DOCKER_MACHINE}" rm -f "${VM}" &> /dev/null
   rm -rf ~/.docker/machine/machines/"${VM}"
-  #set proxy variables if they exists
+  #set proxy variables inside virtual docker machine if they exist in host environment
   if [ "${HTTP_PROXY}" ]; then
     PROXY_ENV="$PROXY_ENV --engine-env HTTP_PROXY=$HTTP_PROXY"
   fi
