@@ -1,0 +1,49 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/buildpack-deps:xenial-scm
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: Install make
+          command: sudo apt-get install make
+      - run:
+          name: Build OSX binary
+          command: make osx
+      - run:
+          name: Build Windows binary
+          command: make windows
+
+  deploy:
+    docker:
+      - image: circleci/buildpack-deps:xenial-scm
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: Install make
+          command: sudo apt-get install make
+      - run:
+          name: Run deploy script
+          command: ./script/deploy.sh
+
+
+
+workflows:
+  version: 2
+  build_deploy_switch:
+    jobs:
+      - build:
+          filters:
+            tags:
+              ignore: /^v.*/
+      - deploy:
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
