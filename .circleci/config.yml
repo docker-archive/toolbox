@@ -16,6 +16,9 @@ jobs:
       - run:
           name: Build Windows binary
           command: make windows
+      - store_artifacts: &artifacts
+          path: ~/project/dist
+          destination: dist
 
   deploy:
     docker:
@@ -30,6 +33,7 @@ jobs:
       - run:
           name: Run deploy script
           command: ./script/deploy.sh
+      - store_artifacts: *artifacts
 
 
 
