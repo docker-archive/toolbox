@@ -189,9 +189,13 @@ begin
 end;
 
 function NeedToInstallGit(): Boolean;
+var
+  ResultCode: Integer;
 begin
-  // TODO: Find a better way to see if Git is installed
-  Result := not DirExists('C:\Program Files\Git')
+  {* By default, where searches the current directory and the paths that are specified in the PATH environment variable, so restrict 
+     the search to the paths listed in the PATH environment variable only to mimic the way that Docker itself looks for git to execute *}
+  Exec('where', '/q $PATH:git', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+  Result := ResultCode <> 0;
 end;
 
 procedure InitializeWizard;
