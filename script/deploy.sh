@@ -15,8 +15,6 @@ for i in $(seq 0 4); do
         md5sum DockerToolbox* > md5sum.txt
     )
     if [[ $? -eq 0 ]]; then
-        cp dist/* $CIRCLE_ARTIFACTS
-
         if [ ! -z "$CIRCLE_TAG" ]; then
             curl --header "Content-Type: application/json" \
                  --data "{\"build_parameters\": {\"CIRCLE_TAG\": \"$CIRCLE_TAG\", \"TOOLBOX_BUILD_NUM\": $CIRCLE_BUILD_NUM, \"TOOLBOX_ARTIFACTS\": \"$CIRCLE_ARTIFACTS\"}}" \
