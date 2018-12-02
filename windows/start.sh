@@ -3,7 +3,7 @@
 trap '[ "$?" -eq 0 ] || read -p "Looks like something went wrong in step ´$STEP´... Press any key to continue..."' EXIT
 
 #Quick Hack: used to convert e.g. "C:\Program Files\Docker Toolbox" to "/c/Program Files/Docker Toolbox"
-win_to_unix_path(){ 
+win_to_unix_path(){
 	wd="$(pwd)"
 	cd "$1"
 		the_path="$(pwd)"
@@ -98,10 +98,10 @@ EOF
 echo -e "${BLUE}docker${NC} is configured to use the ${GREEN}${VM}${NC} machine with IP ${GREEN}$("${DOCKER_MACHINE}" ip ${VM})${NC}"
 echo "For help getting started, check out the docs at https://docs.docker.com"
 echo
-echo 
+echo
 #cd #Bad: working dir should be whatever directory was invoked from rather than fixed to the Home folder
 
-docker () {
+function docker () {
   MSYS_NO_PATHCONV=1 docker.exe "$@"
 }
 export -f docker
