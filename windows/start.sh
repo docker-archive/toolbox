@@ -101,7 +101,7 @@ echo
 echo 
 #cd #Bad: working dir should be whatever directory was invoked from rather than fixed to the Home folder
 
-docker () {
+function docker () {
   MSYS_NO_PATHCONV=1 docker.exe "$@"
 }
 export -f docker
