@@ -1,17 +1,11 @@
-<!--[metadata]>
-+++
-title = "Toolbox Overview"
-description = "Documentation that provides an overview of Toolbox"
-keywords = ["docker, documentation, about, technology, kitematic, gui, toolbox"]
-[menu.main]
-parent="workw_toolbox"
-weight=-10
-+++
-<![end-metadata]-->
+---
+advisory: toolbox
+description: Documentation that provides an overview of Toolbox
+keywords: docker, documentation, about, technology, kitematic, gui, toolbox
+title: Docker Toolbox overview
+---
 
-# Docker Toolbox Overview
-
-Docker Toolbox is an installer for quick setup and launch of a Docker environment on older Mac and Windows systems that do not meet the requirements of the new [Docker for Mac](/docker-for-mac/index.md) and [Docker for Windows](/docker-for-windows/index.md) apps.
+Docker Toolbox is an installer for quick setup and launch of a Docker environment on older Mac and Windows systems that do not meet the requirements of the new [Docker Desktop for Mac](../docker-for-mac/index.md) and [Docker Desktop for Windows](../docker-for-windows/index.md) apps.
 
 ![Toolbox installer](images/toolbox-installer.png)
 
@@ -31,25 +25,25 @@ Toolbox includes these Docker tools:
 
 * Oracle VirtualBox
 
-## Ready to get started?
+You can find various versions of the tools on [Toolbox Releases](https://github.com/docker/toolbox/releases) or run them with the `--version` flag in the terminal, for example, `docker-compose --version`.
 
-Go to the <a href="https://www.docker.com/products/docker-toolbox" target="_blank">Docker Toolbox</a> product page and download Toolbox for Mac or Windows.
+
+## Ready to get started?
 
 Choose the install instructions for your platform, and follow the steps:
 
-* [Install Docker Toolbox on Mac OS X](toolbox_install_mac.md)
+ - [Install Docker Toolbox for macOS](toolbox_install_mac.md)
 
-* [Install Docker Toolbox for Windows](toolbox_install_windows.md)
+ - [Install Docker Toolbox for Windows](toolbox_install_windows.md)
 
+## Next steps
 
-## Next Steps
+* Try the [Get started](../get-started/index.md) tutorial.
 
-* Try out the examples in the [Getting Started](/engine/getstarted/index.md) tutorial.
+* Dig in deeper with [more tutorials and examples](../engine/tutorials/index.md) on building images, running containers, networking, managing data, and storing images on Docker Hub.
 
-* Dig in deeper with [more tutorials and examples](/engine/tutorials/index.md) on building images, runnning containers, networking, managing data, and storing images on Docker Hub.
+* [Learn about Kitematic](../kitematic/userguide.md)
 
-* [Learn about Kitematic](/kitematic/userguide.md)
+* [Learn about Docker Machine](../machine/overview.md)
 
-* [Learn about Docker Machine](/machine/overview.md)
-
-* [Learn about Docker Compose](/compose/overview.md)
+* [Learn about Docker Compose](../compose/index.md)
