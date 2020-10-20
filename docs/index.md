@@ -1,11 +1,15 @@
 ---
-advisory: toolbox
 description: Documentation that provides an overview of Docker Toolbox and installation instructions
 keywords: docker, documentation, about, technology, docker toolbox, gui
-title: Docker Toolbox
 ---
 
-**Note** while Docker Toolbox is now considered Legacy, Kitematic is still supported and available as a separate download from [https://github.com/docker/kitematic](https://github.com/docker/kitematic)
+> ## Deprecation Notice :warning:
+>
+> Docker Toolbox is deprecated and is no longer in active development. Please use
+> [Docker Desktop](https://www.docker.com/products/docker-desktop) instead where
+> possible.
+
+# Docker Toolbox
 
 Available for both Windows and Mac, Docker Toolbox installs the Docker Client, Machine, Compose, and Kitematic.
 

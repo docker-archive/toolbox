@@ -1,9 +1,15 @@
 ---
-advisory: toolbox
 description: Troubleshooting connectivity and certificate issues
 keywords: beginner, getting started, FAQs, troubleshooting, Docker
-title: Troubleshooting
 ---
+
+> ## Deprecation Notice :warning:
+>
+> Docker Toolbox is deprecated and is no longer in active development. Please use
+> [Docker Desktop](https://www.docker.com/products/docker-desktop) instead where
+> possible.
+
+# title: Troubleshooting
 
 Typically, the QuickStart works out-of-the-box, but some scenarios can cause problems.
 

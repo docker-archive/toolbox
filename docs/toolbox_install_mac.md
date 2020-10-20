@@ -1,13 +1,18 @@
 ---
-advisory: toolbox
 description: How to install Toolbox on Mac
 keywords: docker, documentation, install, toolbox, mac
-title: Install Docker Toolbox on macOS
 ---
+
+# Install Docker Toolbox on macOS
+
+> ### Deprecation Notice: Docker Toolbox is deprecated
+>
+> and is no longer in active development. Please use Docker Desktop instead where
+> possible. [Docker Desktop](https://www.docker.com/products/docker-desktop)
 
 Docker Toolbox provides a way to use Docker on older Macs
 that do not meet
-minimal system requirements for [Docker Desktop for Mac](../docker-for-mac/index.md).
+minimal system requirements for [Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/).
 
 ## What you get and how it works
 
@@ -28,7 +33,7 @@ attach to a small Linux VM on your machine. This VM hosts
 Docker Engine for you on your Mac.
 
 >**Tip**: One of the advantages of the newer
-[Docker Desktop for Mac](../docker-for-mac/index.md) solution is that
+[Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/) solution is that
 it uses native virtualization and does not require
 VirtualBox to run Docker.
 
@@ -275,7 +280,7 @@ To uninstall Toolbox on a Mac, do the following:
 
     This step is optional because if you plan
     to re-install Docker Machine as a part
-    of [Docker Desktop for Mac](../docker-for-mac/index.md), you can import and
+    of [Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/), you can import and
     continue to manage those machines through Docker.
 
 3.  In your "Applications" folder, remove the "Docker" directory,
@@ -305,15 +310,3 @@ To uninstall Toolbox on a Mac, do the following:
 
 7.  Uninstall Oracle VirtualBox, which is installed as a part of the
     Toolbox install.
-
-## Next steps
-
-* Try the [Get started](../get-started/index.md) tutorial.
-
-* Dig in deeper with [more tutorials and examples](../engine/tutorials/index.md) on building images, running containers, networking, managing data, and storing images on Docker Hub.
-
-* [Learn about Kitematic](../kitematic/userguide.md)
-
-* [Learn about Docker Machine](../machine/overview.md)
-
-* [Learn about Docker Compose](../compose/index.md)

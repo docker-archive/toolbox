@@ -1,11 +1,17 @@
 ---
-advisory: toolbox
 description: Documentation that provides an overview of Toolbox
 keywords: docker, documentation, about, technology, kitematic, gui, toolbox
-title: Docker Toolbox overview
 ---
 
-Docker Toolbox is an installer for quick setup and launch of a Docker environment on older Mac and Windows systems that do not meet the requirements of the new [Docker Desktop for Mac](../docker-for-mac/index.md) and [Docker Desktop for Windows](../docker-for-windows/index.md) apps.
+> ## Deprecation Notice :warning:
+>
+> Docker Toolbox is deprecated and is no longer in active development. Please use
+> [Docker Desktop](https://www.docker.com/products/docker-desktop) instead where
+> possible.
+
+# Docker Toolbox overview
+
+Docker Toolbox is an installer for quick setup and launch of a Docker environment on older Mac and Windows systems that do not meet the requirements of the new [Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/) and [Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/) apps.
 
 ![Toolbox installer](images/toolbox-installer.png)
 
@@ -36,14 +42,3 @@ Choose the install instructions for your platform, and follow the steps:
 
  - [Install Docker Toolbox for Windows](toolbox_install_windows.md)
 
-## Next steps
-
-* Try the [Get started](../get-started/index.md) tutorial.
-
-* Dig in deeper with [more tutorials and examples](../engine/tutorials/index.md) on building images, running containers, networking, managing data, and storing images on Docker Hub.
-
-* [Learn about Kitematic](../kitematic/userguide.md)
-
-* [Learn about Docker Machine](../machine/overview.md)
-
-* [Learn about Docker Compose](../compose/index.md)

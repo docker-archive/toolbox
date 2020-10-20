@@ -1,10 +1,16 @@
 ---
-advisory: toolbox
 description: FAQs, troubleshooting, and tips index for Toolbox installs
 identifier: toolbox_overview_faqs
 keywords: docker, documentation, about, technology, kitematic, gui, toolbox
-title: FAQs and troubleshooting
 ---
+
+> ## Deprecation Notice :warning:
+>
+> Docker Toolbox is deprecated and is no longer in active development. Please use
+> [Docker Desktop](https://www.docker.com/products/docker-desktop) instead where
+> possible.
+
+# FAQs and Troubleshooting
 
 This is a frequently asked questions (FAQs) and troubleshooting guide for non-technical users who are learning about Docker, starting with [Docker Toolbox](https://www.docker.com/products/docker-toolbox).
 
